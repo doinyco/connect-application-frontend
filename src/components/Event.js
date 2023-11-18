@@ -7,21 +7,22 @@ const Event = (props) => {
         return `data:image/jpeg;base64,${base64}`;
     };
 
-    return <div className="event">
-        <h2>
-            Title: {props.title},
-            EventType: {props.event_type},
-            Location: {props.location},
-            Date: {props.date},
-            Description: {props.description}
-        </h2>
-        {props.file_data && (
-            <div>
-                <img src={base64ToDataURL(props.file_data)} alt="Event Image" />
-            </div>
-        )}
-        
-    </div>
+    return (
+        <div className="event">
+            <h2>
+                Title: {props.title},
+                EventType: {props.event_type},
+                Location: {props.location},
+                Date: {props.date},
+                Description: {props.description}
+            </h2>
+            {props.file_data && (
+                <div>
+                    <img src={base64ToDataURL(props.file_data)} alt="Event Image" />
+                </div>
+            )}
+        </div>
+    )
 };
 
 Event.propTypes = {

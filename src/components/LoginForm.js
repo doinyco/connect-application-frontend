@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { setGlobalUsername } from "../index.js";
 
-
 const authenticateUser = (username, password, cb) => {
   const ACCESS_TOKEN_KEY = 'accessToken';
   const TOKEN_EXPIRATION_KEY = 'tokenExpirationTime';

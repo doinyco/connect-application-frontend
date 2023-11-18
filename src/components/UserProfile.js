@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import { getGlobalUsername } from "../index.js";
 import { useNavigate } from 'react-router-dom';
-import { isTokenValid } from './authUtils';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import EventForm from "./EventForm.js";
 
 const NavUnlisted = styled.ul`
   text-decoration: none;
@@ -65,16 +65,13 @@ const UserProfile = () => {
             },
           }
         );
-        // Clear user data and token-related information from local storage
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('tokenExpirationTime');
   
-        // Navigate to the home page after successful logout
         navigate('/');
       } else {
         console.log('Token is expired. Redirecting to login.');
-        // Redirect to login or handle expired token scenario
         navigate('/login');
       }
     } catch (error) {
@@ -90,7 +87,6 @@ const UserProfile = () => {
           <p>Username: {userData.username}</p>
           <p>Email: {userData.email}</p>
           <button onClick={handleLogout}>Logout</button>
-          {/* Add more details as needed */}
         </div>
       ) : (
         <p>Loading user data...</p>
@@ -102,6 +98,7 @@ const UserProfile = () => {
         </div>  
       </NavUnlisted>
       </div>
+      {userData && <EventForm userData={userData} />}
     </div>
   );
 }

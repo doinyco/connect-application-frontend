@@ -23,4 +23,4 @@ export function getEvents() {
             console.log("Oh noo :O!", error);
             throw error;
         });
-}
+};
