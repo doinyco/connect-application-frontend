@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import EventForm from "./EventForm.js";
+import { getUserEvents } from '../backendAPI';
+import EventList from './EventList';
 
 const NavUnlisted = styled.ul`
   text-decoration: none;
@@ -22,6 +24,7 @@ const UserProfile = () => {
   const { username } = getGlobalUsername();
   const ACCESS_TOKEN_KEY = localStorage.getItem('accessToken');
   const [userData, setUserData] = useState(null);
+  const [events, setUserEvents] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,6 +49,11 @@ const UserProfile = () => {
       getUserDatafromAPI();
     }
   }, [username, ACCESS_TOKEN_KEY]);
+
+  const isTokenExpired = () => {
+    const tokenExpirationTime = parseInt(localStorage.getItem('tokenExpirationTime'));
+    return Date.now() > tokenExpirationTime;
+  };
 
   const handleLogout = async () => {
     try {
@@ -79,6 +87,22 @@ const UserProfile = () => {
     }
   };
 
+  useEffect(() => {
+    fetchEvents();
+  }, [userData]);
+
+  const AccessToken = localStorage.getItem('accessToken');
+  const fetchEvents = async () => {
+    try {
+      if (userData && !isTokenExpired()) {
+        const eventsData = await getUserEvents(userData.user_id);
+        setUserEvents(eventsData);
+      }
+    } catch (error) {
+      console.log('Oh no no!', error);
+    }
+  };
+  
   return (
     <div>
       <h2>User Profile</h2>
@@ -99,6 +123,7 @@ const UserProfile = () => {
       </NavUnlisted>
       </div>
       {userData && <EventForm userData={userData} />}
+      <EventList events={events} />
     </div>
   );
 }

@@ -24,3 +24,37 @@ export function getEvents() {
             throw error;
         });
 };
+
+export function getUserEvents(user_id) {
+    const AccessToken = localStorage.getItem('accessToken');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+      withCredentials: true
+    };
+  
+    return axios
+      .get(`https://icy-surf-5897.fly.dev/users/${user_id}/events`, config)
+      .then((response) => {
+        if (response.data && response.data.events && Array.isArray(response.data.events)) {
+          return response.data.events.map((event) => {
+            return {
+              "event_id": event.event_id,
+              "title": event.title,
+              "event_type": event.event_type,
+              "location": event.location,
+              "date": event.date,
+              "description": event.description,
+              "file_data": event.file_data,
+            };
+          });
+        } else {
+          throw new Error("API response does not contain the expected events array");
+        }
+      })
+      .catch((error) => {
+        console.log("Error fetching events:", error);
+        throw error;
+      });
+}

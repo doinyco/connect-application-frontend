@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Event from './Event';
 
 const EventList = (props) => {
-    console.log('Received events:', props.events);
     const events = props.events.map((event) => {
         return <div className="events">
             <Event
@@ -19,7 +18,6 @@ const EventList = (props) => {
             />
         </div>
     });
-
     return (
         <div className='event'>
             {events}

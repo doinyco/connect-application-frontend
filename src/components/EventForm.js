@@ -2,7 +2,6 @@ import "./RegisterForm.css";
 import React, { useState } from "react";
 import axios from "axios";
 
-
 const createEvent = async (eventDetails) => {
     try {
       const formData = new FormData();
