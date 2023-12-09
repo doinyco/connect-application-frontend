@@ -45,7 +45,7 @@ const App = () => {
           <StyledLink className="link" to="/login">Login</StyledLink>
         </div>  
       </NavUnlisted>
-      <EventList events={events}/>
+      <EventList events={events} showDeleteButton={false} />
     </div>
   );
 }

@@ -5,28 +5,32 @@ import Event from './Event';
 
 const EventList = (props) => {
     const events = props.events.map((event) => {
-        return <div className="events">
+        return (
+          <div key={event.event_id} className="events">
             <Event
-                key = {event.event_id}
-                event_id = {event.event_id}
-                title = {event.title}
-                event_type = {event.event_type}
-                location = {event.location}
-                date = {event.date}
-                description = {event.description}
-                file_data = {event.file_data}
+              event_id={event.event_id}
+              title={event.title}
+              event_type={event.event_type}
+              location={event.location}
+              date={event.date}
+              description={event.description}
+              file_data={event.file_data}
+              showDeleteButton={props.showDeleteButton}
             />
-        </div>
+          </div>
+        );
     });
+
     return (
         <div className='event'>
             {events}
         </div>
     );
 };
-
-EventList.propType = {
-    events:PropTypes.array.isRequired
-}
-
+  
+EventList.propTypes = {
+events: PropTypes.array.isRequired,
+showDeleteButton: PropTypes.bool
+};
+  
 export default EventList;

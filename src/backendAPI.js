@@ -58,3 +58,13 @@ export function getUserEvents(user_id) {
         throw error;
       });
 }
+
+export function deleteEvent(event_id) {
+    axios.delete(`https://icy-surf-5897.fly.dev/events/${event_id}`)
+    .then(response => {
+        console.log("Event successfully deleted.", response.data);
+    })
+    .catch((error) => {
+        console.log("Delete event axios error:", error);
+    });
+}

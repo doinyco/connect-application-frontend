@@ -123,7 +123,7 @@ const UserProfile = () => {
       </NavUnlisted>
       </div>
       {userData && <EventForm userData={userData} />}
-      <EventList events={events} />
+      {userData && <EventList events={events} showDeleteButton={true} />}
     </div>
   );
 }
