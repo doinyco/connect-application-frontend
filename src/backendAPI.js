@@ -68,3 +68,13 @@ export function deleteEvent(event_id) {
         console.log("Delete event axios error:", error);
     });
 }
+
+export function editEvent(event_id, eventData) {
+  axios.put(`https://icy-surf-5897.fly.dev/events/${event_id}`, eventData)
+  .then((response) => {
+    console.log("Event successfully updated", response.data);
+  })
+  .catch((error) => {
+    console.log("Couldn't edit event", error);
+  });
+}

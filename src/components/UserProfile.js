@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import EventForm from "./EventForm.js";
 import { getUserEvents } from '../backendAPI';
 import EventList from './EventList';
+import EditEventForm from "./EditEventForm.js";
 
 const NavUnlisted = styled.ul`
   text-decoration: none;
@@ -25,6 +26,7 @@ const UserProfile = () => {
   const ACCESS_TOKEN_KEY = localStorage.getItem('accessToken');
   const [userData, setUserData] = useState(null);
   const [events, setUserEvents] = useState([])
+  const [editEventData, setEditEventData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -124,6 +126,7 @@ const UserProfile = () => {
       </div>
       {userData && <EventForm userData={userData} />}
       {userData && <EventList events={events} showDeleteButton={true} />}
+      {userData && <EditEventForm eventData={editEventData} />}
     </div>
   );
 }
