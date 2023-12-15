@@ -18,7 +18,8 @@ const StyledLink = styled(Link)`
 `
 
 const App = () => {
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState([]);
+  const visibleEditEvent = false;
   useEffect(() => {
     fetchEvents();
   }, []);
@@ -45,7 +46,7 @@ const App = () => {
           <StyledLink className="link" to="/login">Login</StyledLink>
         </div>  
       </NavUnlisted>
-      <EventList events={events} showDeleteButton={false} />
+      <EventList events={events} />
     </div>
   );
 }

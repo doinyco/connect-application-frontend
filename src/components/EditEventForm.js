@@ -103,7 +103,7 @@ const EditEventForm = ({ editEventData }) => {
               onChange={handleFileInputChange}
             />
           </div>
-          <input type="submit" value="Edit Event:" />
+          <input type="submit" value="Submit" />
         </form>
       </div>
     );
