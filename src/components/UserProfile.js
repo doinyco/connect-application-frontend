@@ -25,6 +25,7 @@ const UserProfile = () => {
   const ACCESS_TOKEN_KEY = localStorage.getItem('accessToken');
   const [userData, setUserData] = useState(null);
   const [events, setUserEvents] = useState([])
+  const [isEventFormVisible, setIsEventFormVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -103,6 +104,10 @@ const UserProfile = () => {
     }
   };
 
+  const toggleEventForm = () => {
+    setIsEventFormVisible(!isEventFormVisible);
+  };
+
   return (
     <div>
       <h2>User Profile</h2>
@@ -122,7 +127,12 @@ const UserProfile = () => {
         </div>  
       </NavUnlisted>
       </div>
-      {userData && <EventForm userData={userData} />}
+      <button onClick={toggleEventForm}>
+        {isEventFormVisible ? 'Close' : 'Create Event'}
+      </button>
+      {isEventFormVisible && userData && (
+        <EventForm userData={userData} />
+      )}
       {events.map((event) => (
         <EventContainer
           key={event.event_id}

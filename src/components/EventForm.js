@@ -124,7 +124,7 @@ const EventForm = ({ userData }) => {
               onChange={handleFileInputChange}
             />
           </div>
-          <input type="submit" value="Create Event" />
+          <input type="submit" value="Submit" />
         </form>
       </div>
     );
