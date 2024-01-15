@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { editEvent, deleteEvent } from '../backendAPI';
 import EditEventForm from "./EditEventForm.js";
 
-const EventContainer = ({ event, showDeleteButton, showEditButton }) => {
+const EventContainer = ({ event }) => {
     const [isEditFormVisible, setIsEditFormVisible] = useState(false);
     const [editEventData, setEditEventData] = useState({});
   
@@ -12,14 +12,12 @@ const EventContainer = ({ event, showDeleteButton, showEditButton }) => {
     };
   
     const deleteButton = async () => {
-      if (showDeleteButton) {
         try {
           await deleteEvent(event.event_id);
           console.log(`Event with ID ${event.event_id} deleted successfully.`);
         } catch (error) {
           console.error(`Error deleting event with ID ${event.event_id}`, error);
         }
-      }
     };
   
     const editButton = () => {
@@ -58,7 +56,7 @@ const EventContainer = ({ event, showDeleteButton, showEditButton }) => {
         <button onClick={editButton} >
           Edit Event
         </button>
-        {isEditFormVisible && <EditEventForm editEventData={editEventData} />}
+        {isEditFormVisible && <EditEventForm editEventData={editEventData} setEditEventData={setEditEventData} />}
       </div>
     );
   };

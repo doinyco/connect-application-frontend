@@ -2,14 +2,14 @@ import "./EditEventForm.css";
 import React, { useState } from "react";
 import { editEvent } from '../backendAPI';
 
-const EditEventForm = ({ editEventData }) => {
+const EditEventForm = ({ editEventData, setEditEventData }) => {
   const [title, setTitle] = useState('');
   const [event_type, setEventType] = useState('');
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
   const [file_data, setFileData] = useState(null);
-  const [updateMessage, setUpdateMessage] = useState(null);
+  const [updateStatus, setUpdateStatus] = useState({ status: null, message: "" });
 
   const handleTitleInput = (event) => {
       setTitle(event.target.value);
@@ -60,20 +60,21 @@ const EditEventForm = ({ editEventData }) => {
     }
   
     if (formData.entries().next().done) {
-      setUpdateMessage('Please enter at least one input field to modify the event.');
+      setUpdateStatus({ status: "error", message: "Please enter at least one input field to modify the event." });
       return;
     }
   
     try {
       const response = await editEvent(editEventData.event_id, formData);
-      console.log('Event successfully edited.', response.data);
-      setUpdateMessage('Event successfully updated.');
+      setUpdateStatus({ status: "success", message: "Event updated successfully." });
+      setEditEventData({});
     } catch (error) {
       console.error('Error while editing event:', error);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
+      if (error.response.status === 400) {
+        {
+          setUpdateStatus({ status: "error", message: "Error while editing event. Please try again." });
+        }
       }
-      setUpdateMessage('Error editing event. Please try again.');
     }
   };
 
@@ -116,7 +117,6 @@ const EditEventForm = ({ editEventData }) => {
             value={description}
             onChange={handleDescriptionInput}
           />
-          {/* Single file input */}
           <input
             type="file"
             id="file_data"
@@ -126,7 +126,8 @@ const EditEventForm = ({ editEventData }) => {
         </div>
         <input type="submit" value="Submit" />
       </form>
-      {updateMessage && <p>{updateMessage}</p>}
+      {updateStatus.status === "success" && <p>{updateStatus.message}</p>}
+      {updateStatus.status === "error" && <p>{updateStatus.message}</p>}
     </div>
   );
 };

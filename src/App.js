@@ -19,7 +19,6 @@ const StyledLink = styled(Link)`
 
 const App = () => {
   const [events, setEvents] = useState([]);
-  const visibleEditEvent = false;
   useEffect(() => {
     fetchEvents();
   }, []);

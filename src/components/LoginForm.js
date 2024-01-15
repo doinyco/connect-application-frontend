@@ -8,7 +8,7 @@ const authenticateUser = (username, password, cb) => {
   const ACCESS_TOKEN_KEY = 'accessToken';
   const TOKEN_EXPIRATION_KEY = 'tokenExpirationTime';
 
-  axios.post(`https://icy-surf-5897.fly.dev/users/login`, {
+  axios.post(`http://127.0.0.1:5000/users/login`, {
     username: username,
     password: password,
   }).then((response) => {
@@ -24,9 +24,17 @@ const authenticateUser = (username, password, cb) => {
     expirationTime.setSeconds(expirationTime.getSeconds() + response.data.expires_in);
     localStorage.setItem(TOKEN_EXPIRATION_KEY, expirationTime.getTime());
 
-    cb(true);
+    cb({ authenticated: true, message: "User successfully logged in!" });
   }).catch((error) => {
-    console.log("Oh no no no!", error);
+    if (error.response) {
+        const status = error.response.status;
+        if (status === 401) {
+          const message = error.response.data.message;
+          cb({ authenticated: false, message });
+        } else {
+          console.log("Oh no no no!", error);
+        }
+    }
   });
 };
 
@@ -61,36 +69,36 @@ const Login = () => {
   }
 
   return (
-      <div className="login">
-          <h3>Log In</h3>
-          <form onSubmit={handleFormSubmission}>
-                  <div className="log">
-                      <input
-                          name="username"
-                          type="text"
-                          placeholder=" Username"
-                          value={username}
-                          onChange={handleFormInput}
-                      />
-                      <input
-                          name="password"
-                          type="password"
-                          placeholder=" Password"
-                          value={password}
-                          onChange={handlePasswordInput}
-                      />
-                      <div className="log-button">
-                          <input type="submit" value="Log In" />
-                      </div>
-                  </div>
-          </form>
-          <div className="signup">
-              <h4>
-                  New user? <span/><span/><span/><span/>
-                  <input type="button" onClick={signUpCb} value="Sign up"/>
-              </h4>
-          </div>
-      </div>
+    <div className="login">
+        <h3>Log In</h3>
+        <form onSubmit={handleFormSubmission}>
+                <div className="log">
+                    <input
+                        name="username"
+                        type="text"
+                        placeholder=" Username"
+                        value={username}
+                        onChange={handleFormInput}
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder=" Password"
+                        value={password}
+                        onChange={handlePasswordInput}
+                    />
+                    <div className="log-button">
+                        <input type="submit" value="Log In" />
+                    </div>
+                </div>
+        </form>
+        <div className="signup">
+            <h4>
+                New user? <span/><span/><span/><span/>
+                <input type="button" onClick={signUpCb} value="Sign up"/>
+            </h4>
+        </div>
+    </div>
   );
 };
 

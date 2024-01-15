@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import EventForm from "./EventForm.js";
 import { getUserEvents } from '../backendAPI';
 import EventContainer from "./EditEvent.js";
+import EditEventForm from "./EditEventForm.js";
+import EditUser from "./EditUser.js";
 
 const NavUnlisted = styled.ul`
   text-decoration: none;
@@ -17,8 +19,7 @@ const NavUnlisted = styled.ul`
 const StyledLink = styled(Link)`
   text-decoration: none;  
   font-size: 16px;
-  font-family: Georgia, serif;
-`
+  font-family: Georgia, serif;`
 
 const UserProfile = () => {
   const { username } = getGlobalUsername();
@@ -26,12 +27,13 @@ const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [events, setUserEvents] = useState([])
   const [isEventFormVisible, setIsEventFormVisible] = useState(false);
+  const [isUserFormVisible, setIsUserFormVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUserDatafromAPI = async () => {
       try {
-        const response = await axios.get(`https://icy-surf-5897.fly.dev/users/${username}`, {
+        const response = await axios.get(`http://127.0.0.1:5000/users/${username}`, {
           headers: {
             Authorization: `Bearer ${ACCESS_TOKEN_KEY}`
           },
@@ -108,6 +110,10 @@ const UserProfile = () => {
     setIsEventFormVisible(!isEventFormVisible);
   };
 
+  const handleEditButtonClick = () => {
+    setIsUserFormVisible(!isUserFormVisible);
+  };
+
   return (
     <div>
       <h2>User Profile</h2>
@@ -115,6 +121,12 @@ const UserProfile = () => {
         <div>
           <p>Username: {userData.username}</p>
           <p>Email: {userData.email}</p>
+        {isUserFormVisible && userData && (
+            <EditUser showEditButton={true} showDeleteButton={true} user={userData} />
+          )}
+          <button onClick={handleEditButtonClick}>
+            {isUserFormVisible ? 'Close Edit Form' : 'Edit User Profile'}
+          </button>
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (

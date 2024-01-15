@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function getEvents() {
-    return axios.get(`https://icy-surf-5897.fly.dev/events`)
+    return axios.get(`http://127.0.0.1:5000/events`)
         .then((response) => {
             if (Array.isArray(response.data)) {
                 return response.data.map((event) => {
@@ -35,7 +35,7 @@ export function getUserEvents(user_id) {
     };
   
     return axios
-      .get(`https://icy-surf-5897.fly.dev/users/${user_id}/events`, config)
+      .get(`http://127.0.0.1:5000/users/${user_id}/events`, config)
       .then((response) => {
         if (response.data && response.data.events && Array.isArray(response.data.events)) {
           return response.data.events.map((event) => {
@@ -60,7 +60,7 @@ export function getUserEvents(user_id) {
 }
 
 export function deleteEvent(event_id) {
-    axios.delete(`https://icy-surf-5897.fly.dev/events/${event_id}`)
+    axios.delete(`http://127.0.0.1:5000/events/${event_id}`)
     .then(response => {
         console.log("Event successfully deleted.", response.data);
     })
@@ -70,11 +70,46 @@ export function deleteEvent(event_id) {
 }
 
 export function editEvent(event_id, eventData) {
-  axios.put(`https://icy-surf-5897.fly.dev/events/${event_id}`, eventData)
+  axios.put(`http://127.0.0.1:5000/events/${event_id}`, eventData)
   .then((response) => {
     console.log("Event successfully updated", response.data);
   })
   .catch((error) => {
     console.log("Couldn't edit event", error);
+  });
+}
+
+export async function editUser(user_id, userData) {
+  try {
+      const AccessToken = localStorage.getItem('accessToken');
+      const config = {
+          headers: {
+              Authorization: `Bearer ${AccessToken}`,
+          },
+          withCredentials: true
+      };
+      
+      const response = await axios.put(`http://127.0.0.1:5000/users/${user_id}`, userData, config);
+      console.log("User successfully updated", response.data);
+  } catch (error) {
+      console.log("Couldn't edit user", error);
+      throw error;
+  }
+};
+
+export function deleteUserProfile(user_id) {
+  const AccessToken = localStorage.getItem('accessToken');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+      withCredentials: true
+    };
+  axios.delete(`http://127.0.0.1:5000/users/${user_id}`, config)
+  .then(response => {
+      console.log("User successfully deleted.", response.data);
+  })
+  .catch((error) => {
+      console.log("Delete user axios error:", error);
   });
 }
