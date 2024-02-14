@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import EventForm from "./EventForm.js";
 import { getUserEvents } from '../backendAPI';
 import EventContainer from "./EditEvent.js";
-import EditEventForm from "./EditEventForm.js";
 import EditUser from "./EditUser.js";
 
 const NavUnlisted = styled.ul`
@@ -28,6 +27,7 @@ const UserProfile = () => {
   const [events, setUserEvents] = useState([])
   const [isEventFormVisible, setIsEventFormVisible] = useState(false);
   const [isUserFormVisible, setIsUserFormVisible] = useState(false);
+  const [showAllEvents, setShowAllEvents] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const UserProfile = () => {
   
       if (tokenExpirationTime > new Date()) {
         const response = await axios.post(
-          'https://icy-surf-5897.fly.dev/users/logout',
+          'http://127.0.0.1:5000/users/logout',
           {},
           {
             headers: {
@@ -106,6 +106,10 @@ const UserProfile = () => {
     }
   };
 
+  const toggleEventList = () => {
+    setShowAllEvents(!showAllEvents);
+  };
+
   const toggleEventForm = () => {
     setIsEventFormVisible(!isEventFormVisible);
   };
@@ -113,6 +117,7 @@ const UserProfile = () => {
   const handleEditButtonClick = () => {
     setIsUserFormVisible(!isUserFormVisible);
   };
+  
 
   return (
     <div>
@@ -145,14 +150,20 @@ const UserProfile = () => {
       {isEventFormVisible && userData && (
         <EventForm userData={userData} />
       )}
-      {events.map((event) => (
-        <EventContainer
-          key={event.event_id}
-          event={event}
-          showDeleteButton={true} 
-          showEditButton={true}
-        />
-      ))}
+      <button onClick={toggleEventList}>
+        {showAllEvents ? 'Hide Events' : 'Show All Events'}
+      </button>
+
+      {showAllEvents ? (
+        events.map((event) => (
+          <EventContainer
+            key={event.event_id}
+            event={event}
+            showDeleteButton={true} 
+            showEditButton={true}
+          />
+        ))
+      ) : null}
     </div>
   );
 }

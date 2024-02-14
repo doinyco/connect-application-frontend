@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { editEvent, deleteEvent } from '../backendAPI';
 import EditEventForm from "./EditEventForm.js";
 
-const EventContainer = ({ event }) => {
+const EventContainer = ({ event, onEditSuccess }) => {
     const [isEditFormVisible, setIsEditFormVisible] = useState(false);
     const [editEventData, setEditEventData] = useState({});
   
@@ -32,6 +32,10 @@ const EventContainer = ({ event }) => {
       });
       setIsEditFormVisible(!isEditFormVisible);
     };
+
+    const handleEditFormClose = () => {
+      setIsEditFormVisible(false);
+    };
   
     useEffect(() => {
     }, [editEventData]);
@@ -56,7 +60,7 @@ const EventContainer = ({ event }) => {
         <button onClick={editButton} >
           Edit Event
         </button>
-        {isEditFormVisible && <EditEventForm editEventData={editEventData} setEditEventData={setEditEventData} />}
+        {isEditFormVisible && <EditEventForm editEventData={editEventData} setEditEventData={setEditEventData} onClose={handleEditFormClose}/>}
       </div>
     );
   };

@@ -36,6 +36,7 @@ const EventForm = ({ userData }) => {
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
   const [file_data, setFileData] = useState(null);
+  const [isFileMissing, setFileMissing] = useState(false);
 
   const handleTitleInput = (event) => {
     setTitle(event.target.value);
@@ -54,10 +55,15 @@ const EventForm = ({ userData }) => {
   };
   const handleFileInputChange = (event) => {
     setFileData(event.target.files[0]);
+    setFileMissing(false);
   };
   
   const handleFormSubmission = async (event) => {
     event.preventDefault();
+    if (!file_data) {
+      setFileMissing(true);
+      return;
+    }
 
     const eventDetails = {
       title,
@@ -116,13 +122,13 @@ const EventForm = ({ userData }) => {
             value={description}
             onChange={handleDescriptionInput}
           />
-          {/* Single file input */}
           <input
             type="file"
             id="file_data"
             name="file_data"
             onChange={handleFileInputChange}
           />
+          {isFileMissing && <p>Please upload a file</p>}
         </div>
         <input type="submit" value="Submit" />
       </form>

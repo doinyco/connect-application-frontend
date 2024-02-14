@@ -53,13 +53,7 @@ const EditUserForm = ({ editUserData, setEditUserData }) => {
     } catch (error) {
       if (error.response) {
         if (error.response.status === 400) {
-          if (error.response.data.error.includes("Username already exists")) {
-            setUpdateStatus({ status: "error", message: "Username already exists. Please choose another one." });
-          } else if (error.response.data.error.includes("New username is the same as the current one")) {
-            setUpdateStatus({ status: "error", message: "New username is the same as the current one." });
-          } else {
-            setUpdateStatus({ status: "error", message: error.response.data.error });
-          }
+          setUpdateStatus({ status: "error", message: error.response.data.error });
         }
       }
     }

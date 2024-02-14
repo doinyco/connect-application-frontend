@@ -35,9 +35,9 @@ const EditUser = ({ user }) => {
   return (
     <div className="event">
       <h2>
-          Username: {user?.username},
-          Email: {user?.email},
-          Password: {user?.password},
+        Username: {user?.username},
+        Email: {user?.email},
+        Password: {user?.password},
       </h2>
       <button onClick={deleteButton} >
         Delete Profile
@@ -46,10 +46,10 @@ const EditUser = ({ user }) => {
         Edit User Profile
       </button>
       {isEditFormVisible && 
-          <EditUserForm
-              editUserData={editUserData}
-              setEditUserData={setEditUserData}
-          />
+        <EditUserForm
+            editUserData={editUserData}
+            setEditUserData={setEditUserData}
+        />
       }
     </div>
   );

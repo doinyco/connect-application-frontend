@@ -23,6 +23,10 @@ const CreateProfile = () => {
 
   const handleFormSubmission = (event) => {
     event.preventDefault();
+    if (!username || !email || !password) {
+      setRegistrationStatus({ status: "error", message: "Please fill in all fields." });
+      return;
+    }
     createUser();
   };
 

@@ -2,7 +2,7 @@ import "./EditEventForm.css";
 import React, { useState } from "react";
 import { editEvent } from '../backendAPI';
 
-const EditEventForm = ({ editEventData, setEditEventData }) => {
+const EditEventForm = ({ editEventData, setEditEventData, onClose }) => {
   const [title, setTitle] = useState('');
   const [event_type, setEventType] = useState('');
   const [location, setLocation] = useState('');
@@ -68,6 +68,11 @@ const EditEventForm = ({ editEventData, setEditEventData }) => {
       const response = await editEvent(editEventData.event_id, formData);
       setUpdateStatus({ status: "success", message: "Event updated successfully." });
       setEditEventData({});
+      setTimeout(() => {
+        console.log(updateStatus); 
+        onEditSuccess();
+        onClose();
+      }, 4000);
     } catch (error) {
       console.error('Error while editing event:', error);
       if (error.response.status === 400) {
@@ -125,8 +130,16 @@ const EditEventForm = ({ editEventData, setEditEventData }) => {
           />
         </div>
         <input type="submit" value="Submit" />
+        <button type="button" onClick={onClose}>
+            Close form
+          </button>
       </form>
-      {updateStatus.status === "success" && <p>{updateStatus.message}</p>}
+      
+      {updateStatus.status === "success" && (
+      <div>
+        <p>{updateStatus.message}</p>
+      </div>
+    )}
       {updateStatus.status === "error" && <p>{updateStatus.message}</p>}
     </div>
   );
