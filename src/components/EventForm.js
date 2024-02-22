@@ -29,7 +29,7 @@ const createEvent = async (eventDetails) => {
   }
 };
 
-const EventForm = ({ userData }) => {
+const EventForm = ({ userData, onClose }) => {
   const [title, setTitle] = useState('');
   const [event_type, setEventType] = useState('');
   const [location, setLocation] = useState('');
@@ -37,6 +37,7 @@ const EventForm = ({ userData }) => {
   const [description, setDescription] = useState('');
   const [file_data, setFileData] = useState(null);
   const [isFileMissing, setFileMissing] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleTitleInput = (event) => {
     setTitle(event.target.value);
@@ -78,6 +79,11 @@ const EventForm = ({ userData }) => {
     try {
       const createdEvent = await createEvent(eventDetails);
       console.log('Event created successfully:', createdEvent);
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+        onClose();
+      }, 4900);
     } catch (error) {
       console.error('Error creating event:', error);
     }
@@ -132,6 +138,11 @@ const EventForm = ({ userData }) => {
         </div>
         <input type="submit" value="Submit" />
       </form>
+      {showSuccessMessage && (
+        <div>
+          <p>Event created successfully!</p>
+        </div>
+      )}
     </div>
   );
 };
