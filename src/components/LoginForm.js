@@ -26,11 +26,10 @@ const authenticateUser = async (username, password) => {
 
     return { authenticated: true, message: "User successfully logged in!" };
   } catch (error) {
-    if (error.response && error.response.status === 401) {
-      return { authenticated: false, message: "Incorrect username or password" };
-    } else {
-      console.error("Oh no no no!", error);
-      return { authenticated: false, message: "An error occurred during authentication." };
+    if (error.response && error.response.data) {
+      return { authenticated: false, message: error.response.data.message };
+    } else if (error.response && error.response.status === 404){
+      return { authenticated: false, message: error.response.data.message };
     }
   }
 };
@@ -51,16 +50,19 @@ const Login = () => {
 
   const handleFormSubmission = async (event) => {
     event.preventDefault();
+  
     try {
       const response = await authenticateUser(username, password);
   
       if (response.authenticated) {
+
         navigate(`/profile/${username}`);
       } else {
         setLoginStatus({ status: "error", message: response.message || "An unexpected error occurred during authentication." });
       }
     } catch (error) {
       console.error("Authentication error:", error);
+  
       if (error.response && error.response.data) {
         setLoginStatus({ status: "error", message: error.response.data.message });
       }
