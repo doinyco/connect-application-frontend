@@ -70,7 +70,6 @@ const EditEventForm = ({ editEventData, setEditEventData, onClose }) => {
       setEditEventData({});
       setTimeout(() => {
         console.log(updateStatus); 
-        onEditSuccess();
         onClose();
       }, 4000);
     } catch (error) {
