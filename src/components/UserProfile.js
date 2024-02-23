@@ -147,8 +147,9 @@ const UserProfile = () => {
       <button onClick={toggleEventForm}>
         {isEventFormVisible ? 'Close' : 'Create Event'}
       </button>
+      {events.length === 0 && showAllEvents && <p>No events saved.</p>}
       {isEventFormVisible && userData && (
-        <EventForm userData={userData} />
+        <EventForm userData={userData} onClose={toggleEventForm} />
       )}
       <button onClick={toggleEventList}>
         {showAllEvents ? 'Hide Events' : 'Show All Events'}
@@ -161,6 +162,7 @@ const UserProfile = () => {
             event={event}
             showDeleteButton={true} 
             showEditButton={true}
+            onClose={toggleEventList}
           />
         ))
       ) : null}
