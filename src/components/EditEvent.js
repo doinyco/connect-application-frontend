@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { editEvent, deleteEvent } from '../backendAPI';
 import EditEventForm from "./EditEventForm.js";
 
-const EventContainer = ({ event, onEditSuccess }) => {
+const EventContainer = ({ event, onClose }) => {
     const [isEditFormVisible, setIsEditFormVisible] = useState(false);
     const [editEventData, setEditEventData] = useState({});
-  
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
     const base64ToDataURL = (base64) => {
       return `data:image/jpeg;base64,${base64}`;
     };
@@ -15,6 +16,11 @@ const EventContainer = ({ event, onEditSuccess }) => {
         try {
           await deleteEvent(event.event_id);
           console.log(`Event with ID ${event.event_id} deleted successfully.`);
+          setShowSuccessMessage(true);
+          setTimeout(() => {
+            setShowSuccessMessage(false);
+            onClose();
+          }, 4000);
         } catch (error) {
           console.error(`Error deleting event with ID ${event.event_id}`, error);
         }
@@ -61,6 +67,11 @@ const EventContainer = ({ event, onEditSuccess }) => {
           Edit Event
         </button>
         {isEditFormVisible && <EditEventForm editEventData={editEventData} setEditEventData={setEditEventData} onClose={handleEditFormClose}/>}
+        {showSuccessMessage && (
+        <div>
+          <p>Event successfully deleted!</p>
+        </div>
+      )}
       </div>
     );
   };
