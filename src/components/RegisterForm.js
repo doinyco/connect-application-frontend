@@ -2,6 +2,27 @@ import "./RegisterForm.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const NavUnlisted2 = styled.ul`
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+`;
+const StyledLink2 = styled(Link)`
+  text-decoration: none;
+  padding: 5px 10px;
+  display: block;
+  margin-top: 50px;
+  color: #4CAF50;
+  &:hover {
+    color: #45a049; 
+  }
+`
 
 const CreateProfile = () => {
   const [username, setUsername] = useState("")
@@ -50,7 +71,7 @@ const CreateProfile = () => {
   };
 
   return (
-    <div>
+    <div className='create-user'>
       <h2>Create User Profile</h2>
       {registrationStatus.status === "success" && <p>{registrationStatus.message}</p>}
       {registrationStatus.status === "error" && <p>{registrationStatus.message}</p>}
@@ -71,7 +92,7 @@ const CreateProfile = () => {
           />
           <input
             name="password"
-            type="text"
+            type="password"
             placeholder=" Password"
             value={password}
             onChange={handlePasswordInput}
@@ -80,6 +101,10 @@ const CreateProfile = () => {
             <input type="submit" value="CREATE" /> 
           </div>     
       </form>
+      <NavUnlisted2>
+          <StyledLink2 className="link" to="/">Main page</StyledLink2>
+          <StyledLink2 className="link" to="/login">Login</StyledLink2>
+      </NavUnlisted2>
     </div>
   )
 };

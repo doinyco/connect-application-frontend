@@ -1,0 +1,52 @@
+.create-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 0px; /* Add some space between title and form */
+}
+
+h2 {
+    text-align: center;
+    color: #4CAF50; /* Green color for the title */
+    margin-bottom: 20px; /* Add some space below the title */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.signup-s {
+    text-align: center;
+    margin-top: 20px; /* Add some space above the submit button */
+}
+
+.signup-s input {
+    background-color: #4CAF50; /* Green background color */
+    color: white;
+    cursor: pointer;
+}
+
+.signup-s input:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+p {
+    text-align: center;
+    color: #ff6347; /* Tomato color for error messages */
+  }
+

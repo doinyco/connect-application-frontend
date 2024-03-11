@@ -8,17 +8,21 @@ import EventForm from "./EventForm.js";
 import { getUserEvents } from '../backendAPI';
 import EventContainer from "./EditEvent.js";
 import EditUser from "./EditUser.js";
+import './UserProfile.css';
 
 const NavUnlisted = styled.ul`
   text-decoration: none;
-  gap: 8%;
   display: flex;
+  position: absolute;
+  top: 5px;
+  right: 30px;
+  display: flex;
+  font-size: 15px;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;  
-  font-size: 16px;
-  font-family: Georgia, serif;`
+`
 
 const UserProfile = () => {
   const { username } = getGlobalUsername();
@@ -26,7 +30,7 @@ const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [events, setUserEvents] = useState([])
   const [isEventFormVisible, setIsEventFormVisible] = useState(false);
-  const [isUserFormVisible, setIsUserFormVisible] = useState(false);
+  const [isEditUserFormVisible, setIsEditUserFormVisible] = useState(false);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const navigate = useNavigate();
 
@@ -114,58 +118,61 @@ const UserProfile = () => {
     setIsEventFormVisible(!isEventFormVisible);
   };
 
-  const handleEditButtonClick = () => {
-    setIsUserFormVisible(!isUserFormVisible);
+  const toggleEditUserForm = () => {
+    setIsEditUserFormVisible(!isEditUserFormVisible);
   };
   
-
   return (
-    <div>
-      <h2>User Profile</h2>
-      {userData ? (
-        <div>
-          <p>Username: {userData.username}</p>
-          <p>Email: {userData.email}</p>
-        {isUserFormVisible && userData && (
-            <EditUser showEditButton={true} showDeleteButton={true} user={userData} />
-          )}
-          <button onClick={handleEditButtonClick}>
-            {isUserFormVisible ? 'Close Edit Form' : 'Edit User Profile'}
-          </button>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <p>Loading user data...</p>
-      )}
+    <div className='user-profile'>
       <div>
-      <NavUnlisted>
-        <div className="nav-i">
-          <StyledLink className="link" to="/">Home</StyledLink>
-        </div>  
-      </NavUnlisted>
+        <NavUnlisted>
+          <div className="nav-i">
+            <StyledLink className="link" to="/">Main page</StyledLink>
+            <button className='logout-button' onClick={handleLogout}>Logout</button>
+          </div>
+        </NavUnlisted>
       </div>
-      <button onClick={toggleEventForm}>
-        {isEventFormVisible ? 'Close' : 'Create Event'}
-      </button>
-      {events.length === 0 && showAllEvents && <p>No events saved.</p>}
-      {isEventFormVisible && userData && (
-        <EventForm userData={userData} onClose={toggleEventForm} />
-      )}
-      <button onClick={toggleEventList}>
-        {showAllEvents ? 'Hide Events' : 'Show All Events'}
-      </button>
-
-      {showAllEvents ? (
-        events.map((event) => (
-          <EventContainer
-            key={event.event_id}
-            event={event}
-            showDeleteButton={true} 
-            showEditButton={true}
-            onClose={toggleEventList}
-          />
-        ))
-      ) : null}
+      <div className='main-user'>
+          <h2>Welcome</h2>
+          <div className="user-profile-section">
+            {userData ? (
+              <div className="section-1">
+              <p className="user-info">{userData.username}<br />{userData.email}</p>
+              {isEditUserFormVisible && userData && (
+                <EditUser showEditButton={true} showDeleteButton={true} user={userData}  onClose={toggleEditUserForm}/>
+              )}
+              <button className='action-buttons' onClick={toggleEditUserForm}>
+                {isEditUserFormVisible ? 'Close Edit Form' : 'Edit profile'}
+              </button>
+              </div>
+            ) : (
+              <p>Loading user data...</p>
+            )}
+            <button className='action-buttons' onClick={toggleEventForm}>
+              {isEventFormVisible ? 'Close' : 'Create event'}
+            </button>
+            {events.length === 0 && showAllEvents && <p>No events saved.</p>}
+            {isEventFormVisible && userData && (
+              <EventForm userData={userData} onClose={toggleEventForm} />
+            )}
+            <button  className='action-buttons' onClick={toggleEventList}>
+              {showAllEvents ? 'Hide Events' : 'Saved events'}
+            </button>
+          </div>
+          <div className='event-list-container'>
+            {showAllEvents ? (
+              events.map((event) => (
+                <EventContainer
+                  key={event.event_id}
+                  event={event}
+                  showDeleteButton={true} 
+                  showEditButton={true}
+                  onClose={toggleEventList}
+                />
+              ))
+            ) : null}
+          </div>
+        </div>
     </div>
   );
 }

@@ -1,0 +1,65 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-top: 30px; /* Adjust margin-top as needed */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+    width: 100%;
+}
+
+input {
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #ddd;
+border-radius: 5px;
+}
+
+
+
+.log-button input {
+    background-color: #42a5f5;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    max-width: 100%;
+}
+
+.log-button {
+    text-align: center; /* Center the button within its container */
+  }
+
+.log-button input:hover {
+background-color: #1e88e5;
+}
+
+.signup h4 input {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    text-decoration: underline;
+}
+
+.signup h4 input:hover {
+    color: #f0f0f0;
+}
+
+
+h4{
+    color: #42a5f5;
+}
+.login > h3 {
+    color: #42a5f5;
+}

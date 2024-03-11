@@ -2,6 +2,23 @@ import "./LoginForm.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const NavUnlisted3 = styled.ul`
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+`;
+const StyledLink3 = styled(Link)`
+  text-decoration: none;
+  padding: 5px 10px;
+  display: block;
+  margin-top: 30px;
+`
 
 const authenticateUser = async (username, password) => {
   const ACCESS_TOKEN_KEY = 'accessToken';
@@ -78,7 +95,7 @@ const Login = () => {
       <h3>Log In</h3>
       {loginStatus.message && <p>{loginStatus.message}</p>}
       <form onSubmit={handleFormSubmission}>
-        <div className="log">
+        <div className="login-form">
           <input
               name="username"
               type="text"
@@ -98,12 +115,10 @@ const Login = () => {
           </div>
         </div>
       </form>
-      <div className="signup">
-          <h4>
-              New user? <span/><span/><span/><span/>
-              <input type="button" onClick={signUpCb} value="Sign up"/>
-          </h4>
-      </div>
+      <NavUnlisted3>
+          <StyledLink3 className="link" to="/">Main page</StyledLink3>
+          <StyledLink3 className="link" to="/register">New user? Sign-up</StyledLink3>
+      </NavUnlisted3>
     </div>
   );
 };
