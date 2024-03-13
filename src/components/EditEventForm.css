@@ -1,0 +1,56 @@
+.edit-event-form {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  margin: auto; 
+}
+
+.edit-event-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-event-form {
+  display: flex;
+  flex-direction: column;
+}
+  
+.status-message {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+}
+
+.status-message > p {
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px; 
+  margin: 8px 0;
+}
+
+.edit-event-form  > button{
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.edit-event-form  > button:hover {
+  background-color: #45a049;
+}
+.edit-event-form input[type="file"] {
+  border: none;
+}

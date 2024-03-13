@@ -1,0 +1,72 @@
+.event-container2 {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    margin: 10px;
+    background-color: white;
+}
+
+.event {
+    width: 250px; 
+    padding: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px;
+}
+
+.event img {
+    max-width: 100%;
+    max-height: 150px; 
+    margin-bottom: 8px;
+    display: block;
+}
+
+.buttons button {
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 9.5px;
+    margin-right: 8px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.buttons button:hover {
+    background-color: #45a049;
+}
+
+.title {
+    font-size: 1.2em;
+    font-weight: bold; 
+    color: #333;
+}
+
+.event-type {
+    font-style: italic; 
+    color: #555;
+}
+
+.location {
+    color: #007bff;
+}
+
+.date {
+    font-weight: bold; 
+    color: #555; 
+}
+
+.description {
+    font-size: 0.7em;
+    color: #777; 
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+    margin-top: 25px;
+}
+
+.event > .file-input {
+    border: none;
+}
+  
