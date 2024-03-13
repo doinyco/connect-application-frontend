@@ -4,9 +4,10 @@ import EditUserForm from "./EditUserForm.js";
 import { deleteUserProfile } from '../backendAPI';
 import { useNavigate } from "react-router-dom";
 
-const EditUser = ({ user }) => {
+const EditUser = ({ user, onClose }) => {
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [editUserData, setEditUserData] = useState({});
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate()
 
   const deleteButton = async () => {
@@ -29,16 +30,15 @@ const EditUser = ({ user }) => {
     setIsEditFormVisible(!isEditFormVisible);
   };
 
+  const handleEditFormClose = () => {
+    setIsEditFormVisible(false);
+  };
+
   useEffect(() => {
   }, [editUserData]);
 
   return (
-    <div className="event">
-      <h2>
-        Username: {user?.username},
-        Email: {user?.email},
-        Password: {user?.password},
-      </h2>
+    <div className="user-data">
       <button onClick={deleteButton} >
         Delete Profile
       </button>
@@ -47,10 +47,14 @@ const EditUser = ({ user }) => {
       </button>
       {isEditFormVisible && 
         <EditUserForm
-            editUserData={editUserData}
-            setEditUserData={setEditUserData}
-        />
-      }
+          editUserData={editUserData}
+          setEditUserData={setEditUserData}
+          onClose={handleEditFormClose}/>}
+      {showSuccessMessage && (
+      <div>
+        <p>Updated user data!</p>
+      </div> 
+      )} 
     </div>
   );
 };

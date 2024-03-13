@@ -7,14 +7,21 @@ import EventList from './components/EventList';
 
 const NavUnlisted = styled.ul`
   text-decoration: none;
-  gap: 8%;
+  position: absolute;
+  top: 20px;
+  right: 40px;
   display: flex;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;  
-  font-size: 16px;
-  font-family: Georgia, serif;
+  color: white;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 13.5px;
+  &:hover {
+    color: #fff;
+  }
 `
 
 const App = () => {
@@ -39,7 +46,7 @@ const App = () => {
       </header>
       <NavUnlisted>
         <div className="nav-i">
-          <StyledLink className="link" to="/register">New User? Sign-up here</StyledLink>
+          <StyledLink className="link" to="/register">Create account</StyledLink>
         </div>
         <div className="nav-i">
           <StyledLink className="link" to="/login">Login</StyledLink>

@@ -1,0 +1,25 @@
+.user-data {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.user-data > button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: #3498db;
+  padding: 8px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.user-data > button:hover {
+  color: #1c77c3;
+}
+
+.user-data > button:focus {
+  outline: none;
+}
