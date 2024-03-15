@@ -8,19 +8,17 @@ const Event = (props) => {
     };
 
     return (
-        <div className="event">
-            <h2>
-                Title: {props.title},
-                EventType: {props.event_type},
-                Location: {props.location},
-                Date: {props.date},
-                Description: {props.description}
-            </h2>
+        <div className="event-container">
             {props.file_data && (
                 <div>
                     <img src={base64ToDataURL(props.file_data)} alt="Event Image" />
                 </div>
             )}
+            <div className='title'>{props.title}</div>
+            <div className='event-type'>Event type: {props.event_type}</div>
+            <div className='location'>Location: {props.location}</div>
+            <div className='date'>Date: {props.date}</div>
+            <div className='description'>{props.description}</div>
         </div>
     )
 };

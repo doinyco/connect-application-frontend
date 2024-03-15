@@ -1,29 +1,45 @@
-.event {
-    display: flexbox;
-    border: 1px solid #ccc;
-    margin: 70px;
-    padding: 10px;
-    background-color: #f5f5f5;
+.event-container {
+    width: 250px;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  
+    &:hover {
+      transform: perspective(500px) translateZ(10px);
+    }
 }
 
-.event-details {
-    flex: 1;
-    padding: 10px;
+.title {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: #333;
+    font-weight: bold;
 }
 
-.event h2 {
-    font-size: 17px;
+.title, .event-type, .location, .date{
+    margin: 0 0 10px;
+    font-size: 11px;
+    color: #333;
 }
 
-.event-details p {
-    margin: 5px 0;
+.description {
+    display: grid;
+    margin: 0 0 10px;
+    font-size: 11px;
+    color: #333;
+}
+
+.event p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
 }
 
 img {
-    width: 500px;
-    max-height: 500px;
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
+    width: 100%;
+    max-height: 150px;
+    height: auto;
+    margin-bottom: 5px;
 }
 

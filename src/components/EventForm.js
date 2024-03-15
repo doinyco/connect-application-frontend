@@ -1,4 +1,4 @@
-import "./RegisterForm.css";
+import "./EventForm.css";
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -38,6 +38,7 @@ const EventForm = ({ userData, onClose }) => {
   const [file_data, setFileData] = useState(null);
   const [isFileMissing, setFileMissing] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleTitleInput = (event) => {
     setTitle(event.target.value);
@@ -88,62 +89,68 @@ const EventForm = ({ userData, onClose }) => {
       console.error('Error creating event:', error);
     }
   };
+  const handleCloseForm = () => {
+    onClose();
+    setIsModalOpen(false);
+  };
   
   return (
-    <div>
-      <form onSubmit={handleFormSubmission}>
-        <div className="log">
-          <input
-            name="title"
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={handleTitleInput}
-          />
-          <input
-            name="event_type"
-            type="text"
-            placeholder="Event Type"
-            value={event_type}
-            onChange={handleEventTypeInput}
-          />
-          <input
-            name="location"
-            type="text"
-            placeholder="Location"
-            value={location}
-            onChange={handleLocationInput}
-          />
-          <input
-            name="date"
-            type="text"
-            placeholder="Date"
-            value={date}
-            onChange={handleDateInput}
-          />
-          <input
-            name="description"
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={handleDescriptionInput}
-          />
-          <input
-            type="file"
-            id="file_data"
-            name="file_data"
-            onChange={handleFileInputChange}
-          />
-          {isFileMissing && <p>Please upload a file</p>}
+      <div className={`modal-overlay ${isModalOpen ? 'modal-open' : ''}`}>
+        <form className='event-form' onSubmit={handleFormSubmission}>
+          <div className="event-input">
+            <input
+              name="title"
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={handleTitleInput}
+            />
+            <input
+              name="event_type"
+              type="text"
+              placeholder="Event Type"
+              value={event_type}
+              onChange={handleEventTypeInput}
+            />
+            <input
+              name="location"
+              type="text"
+              placeholder="Location"
+              value={location}
+              onChange={handleLocationInput}
+            />
+            <input
+              name="date"
+              type="text"
+              placeholder="Date"
+              value={date}
+              onChange={handleDateInput}
+            />
+            <input
+              name="description"
+              type="text"
+              placeholder="Description"
+              value={description}
+              onChange={handleDescriptionInput}
+            />
+            <input
+              type="file"
+              id="file_data"
+              name="file_data"
+              onChange={handleFileInputChange}
+            />
+            {isFileMissing && <p>Please upload a file</p>}
+          </div>
+          <input className='submit-button' type="submit" value="Submit" />
+          <button type="close-button" onClick={handleCloseForm}>Close Form</button>
+        </form>
+        <div className='status-message'>
+          {showSuccessMessage && (
+              <p>Event created successfully!</p>
+          )}
         </div>
-        <input type="submit" value="Submit" />
-      </form>
-      {showSuccessMessage && (
-        <div>
-          <p>Event created successfully!</p>
-        </div>
-      )}
-    </div>
+      </div>
+    
   );
 };
   
